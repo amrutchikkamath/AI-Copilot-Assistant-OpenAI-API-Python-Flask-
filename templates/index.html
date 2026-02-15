@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Copilot Assistant</title>
+</head>
+<body>
+
+<h2>AI Copilot Assistant</h2>
+
+<input type="text" id="message" placeholder="Ask something..." size="50">
+<button onclick="sendMessage()">Ask</button>
+
+<p id="response"></p>
+
+<script>
+async function sendMessage() {
+    let message = document.getElementById("message").value;
+
+    let res = await fetch("/ask", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({message: message})
+    });
+
+    let data = await res.json();
+    document.getElementById("response").innerText = data.response;
+}
+</script>
+
+</body>
+</html>
